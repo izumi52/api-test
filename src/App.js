@@ -62,8 +62,12 @@ class App extends React.Component {
       popupClassName = "show";
     }
 
-    var thisMovie = this.state.content;
-	var imgLink = 'img/no-image.jpg';
+	var thisMovie = this.state.content;
+	if(thisMovie.Poster === "N/A"){
+		var imgLink = 'img/no-image.jpg';
+	} else {
+		var imgLink = thisMovie.Poster;
+	}
     return (
       <div className="App">
         <header className="App-header">
@@ -79,7 +83,7 @@ class App extends React.Component {
 				<button onClick={this.handleOnClose}>close</button>
 				<div className="PopUp-inner">
 					<figure className="PopUp-inner-img">
-					{ thisMovie.Poster === "N/A" ? <img src={imgLink}></img> : <img src={thisMovie.Poster}></img> }
+					<img src={imgLink}></img>
 					</figure>
 					<div className="PopUp-inner-details">
 						<h3>{thisMovie.Title}</h3>
