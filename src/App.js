@@ -33,23 +33,28 @@ class App extends React.Component {
       .then(function (response) {
         self.setState({ content: response.data })
       })
-    this.setState({ showPopup: true });
+	  document.body.classList.add('open');
+	  this.setState({ showPopup: true });
   }
 
   handleOnClose() {
+	document.body.classList.remove('open');
     this.setState({ showPopup: false });
   }
 
   render() {
-    var self = this;
+	var self = this;
     var list = _.map(this.state.movies, function (movie, i) {
-      return (<div key={"movie-" + i}>
-      <h3>{movie.Title} [{movie.imdbID}]</h3>
-      <p>
-        <span>{movie.Year}</span>
-        <button onClick={e => self.handleOnClick(movie.imdbID)} >Test</button>
+		var imgLink = 'img/no-image.jpg';
+		return (<li key={"movie-" + i} className="Movie-items">
+	  <figure className="Movie-items-img">
+	  { movie.Poster === "N/A" ? <img src={imgLink}></img> : <img src={movie.Poster}></img> }
+   	  </figure>
+      <h3 className="Movie-items-title">{movie.Title}</h3>
+      <p className="Movie-items-text">{movie.Year}
+        <button onClick={e => self.handleOnClick(movie.imdbID)} >MORE INFO</button>
       </p>
-      </div>);
+      </li>);
     });
 
     var popupClassName = "";
@@ -61,15 +66,33 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          {list}
+			<h1>MARVEL ARCHIVES</h1>
         </header>
+        <section>
+          <ul className="Movie">
+	          {list}
+		  </ul>
+        </section>
         <div id="PopUp" className={popupClassName}>
-        <button onClick={this.handleOnClose}>close</button>
-          <h3>{thisMovie.Title}</h3>
-          <div>
-            <span>Actors</span>
-            <span>{thisMovie.Actors}</span>
-          </div>
+			<div className="PopUp-wrapper">
+				<button onClick={this.handleOnClose}>close</button>
+				<div className="PopUp-inner">
+					<figure className="PopUp-inner-img">
+						<img src={thisMovie.Poster}></img>
+					</figure>
+					<div className="PopUp-inner-details">
+						<h3>{thisMovie.Title}</h3>
+						<dl>
+							<dt>Year</dt>
+							<dd>{thisMovie.Year}</dd>
+							<dt>Actors</dt>
+							<dd>{thisMovie.Actors}</dd>
+							<dt>Type</dt>
+							<dd>{thisMovie.Type}</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
         </div>
       </div>
     );
