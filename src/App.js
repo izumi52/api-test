@@ -45,8 +45,8 @@ class App extends React.Component {
   render() {
 	var self = this;
     var list = _.map(this.state.movies, function (movie, i) {
-		var imgLink = 'img/no-image.jpg';
-		return (<li key={"movie-" + i} className="Movie-items">
+	var imgLink = 'img/no-image.jpg';
+	return (<li key={"movie-" + i} className="Movie-items">
 	  <figure className="Movie-items-img">
 	  { movie.Poster === "N/A" ? <img src={imgLink}></img> : <img src={movie.Poster}></img> }
    	  </figure>
@@ -63,6 +63,7 @@ class App extends React.Component {
     }
 
     var thisMovie = this.state.content;
+	var imgLink = 'img/no-image.jpg';
     return (
       <div className="App">
         <header className="App-header">
@@ -78,7 +79,7 @@ class App extends React.Component {
 				<button onClick={this.handleOnClose}>close</button>
 				<div className="PopUp-inner">
 					<figure className="PopUp-inner-img">
-						<img src={thisMovie.Poster}></img>
+					{ thisMovie.Poster === "N/A" ? <img src={imgLink}></img> : <img src={thisMovie.Poster}></img> }
 					</figure>
 					<div className="PopUp-inner-details">
 						<h3>{thisMovie.Title}</h3>
