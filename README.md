@@ -10,3 +10,6 @@ This project uses Sass.
 This page is styling with flex-box.
 
 This page using some css animation. e.g. Show and hidden dialog
+
+Modified file ->	src/app.js 
+									public/sass/style.scss
